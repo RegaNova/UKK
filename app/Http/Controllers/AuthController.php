@@ -4,81 +4,91 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\MakePetugasRequest;
-use Illuminate\Http\Request;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    // login form
+    // ================= LOGIN =================
     public function showLoginForm()
     {
         return view('auth.login');
     }
-    
-    // register form
+
+    public function login(LoginRequest $request)
+    {
+        $credentials = $request->validated();
+
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+
+            $role = Auth::user()->role ?? 'user';
+
+            return match ($role) {
+                'admin'   => redirect()->route('admin.dashboard'),
+                'petugas' => redirect()->route('petugas.dashboard'),
+                default   => redirect()->route('user.dashboard'),
+            };
+        }
+
+        return back()->withErrors([
+            'email' => 'Email atau password salah.',
+        ]);
+    }
+
+    // ================= REGISTER =================
     public function showRegisterForm()
     {
         return view('auth.register');
     }
 
-    // login logic
-    public function login(LoginRequest $request)
-    {
-        $credentials = $request->validated();
-
-        if (auth()->attempt($credentials)) {
-            return redirect()->intended('dashboard');
-        }
-
-        return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
-        ]);
-    }
-
-    // register logic
     public function register(RegisterRequest $request)
     {
         $payload = $request->validated();
 
-        $user = User::create([
-            'name' => $payload['name'],
-            'email' => $payload['email'],
+        User::create([
+            'name'     => $payload['name'],
+            'email'    => $payload['email'],
             'password' => bcrypt($payload['password']),
+            'role'     => 'user', // 🔥 FIX UNDEFINED ROLE
         ]);
 
-        return redirect()->route('login')->with('success', 'Registration successful. Please login.');
+        return redirect()->route('login')->with('success', 'Registrasi berhasil, silakan login.');
     }
 
-    // logout logic
+    // ================= LOGOUT =================
     public function logout(Request $request)
     {
-        auth()->logout();
+        Auth::logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
         return redirect()->route('login');
     }
 
-    // make petugas form
+    // ================= PETUGAS =================
     public function makePetugasForm()
     {
         return view('auth.make-petugas');
     }
 
-    // make petugas logic
     public function makePetugas(MakePetugasRequest $request)
     {
         $payload = $request->validated();
 
-        $user = User::create([
-            'name' => $payload['name'],
-            'email' => $payload['email'],
+        User::create([
+            'name'     => $payload['name'],
+            'email'    => $payload['email'],
             'password' => bcrypt($payload['password']),
-            'role' => 'petugas',
+            'role'     => 'petugas',
         ]);
 
-        return redirect()->back()->with('success', 'Successfully created petugas account.');
+        return back()->with('success', 'Akun petugas berhasil dibuat.');
     }
 
-    // petugas detail view
     public function makePetugasDetail($id)
     {
         $user = User::findOrFail($id);
@@ -90,30 +100,24 @@ class AuthController extends Controller
         $user = User::findOrFail($id);
         return view('auth.edit-petugas', compact('user'));
     }
-    
 
-    // edit petugas logic
     public function editPetugas(MakePetugasRequest $request, $id)
     {
         $payload = $request->validated();
-
         $user = User::findOrFail($id);
 
         $user->update([
-            'name' => $payload['name'],
-            'email' => $payload['email'],
+            'name'     => $payload['name'],
+            'email'    => $payload['email'],
             'password' => bcrypt($payload['password']),
         ]);
 
-        return redirect()->back()->with('success', 'Successfully updated petugas account.');
+        return back()->with('success', 'Data petugas berhasil diupdate.');
     }
 
-    // delete petugas logic
     public function deletePetugas($id)
     {
-        $user = User::findOrFail($id);
-        $user->delete();
-
-        return redirect()->back()->with('success', 'Successfully deleted petugas account.');
+        User::findOrFail($id)->delete();
+        return back()->with('success', 'Akun petugas berhasil dihapus.');
     }
 }

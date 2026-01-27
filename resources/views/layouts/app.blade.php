@@ -2,43 +2,27 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Aplikasi Alat')</title>
-
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>@yield('title')</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
+<body class="bg-gray-100 min-h-screen">
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm sticky-top">
-    <div class="container">
-        <a class="navbar-brand fw-bold" href="{{ url('/') }}">
-            🛠 CRUD Alat
-        </a>
+    <!-- Navbar -->
+    <nav class="bg-indigo-600 text-white px-6 py-4 flex justify-between">
+        <h1 class="font-bold text-lg">Sistem Peminjaman Alat</h1>
 
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+        <form action="{{ route('logout') }}" method="POST">
+            @csrf
+            <button class="bg-red-500 px-4 py-1 rounded hover:bg-red-600">
+                Logout
+            </button>
+        </form>
+    </nav>
 
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="nav-link active" href="{{ route('alat.index') }}">
-                        Data Alat
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
-
-
-<div class="container">
-    @yield('content')
-</div>
-
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Content -->
+    <main class="p-6">
+        @yield('content')
+    </main>
 
 </body>
 </html>
