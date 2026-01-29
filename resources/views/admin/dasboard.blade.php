@@ -1,15 +1,6 @@
 @extends('layouts.app')
 @section('title','Dashboard Admin')
 
-@section('sidebar')
-<ul class="nav flex-column">
-    <li class="nav-item"><a class="nav-link active">Dashboard</a></li>
-    <li class="nav-item"><a class="nav-link">User</a></li>
-    <li class="nav-item"><a class="nav-link">Alat</a></li>
-    <li class="nav-item"><a class="nav-link">Kategori</a></li>
-</ul>
-@endsection
-
 @section('content')
 <h4>Dashboard Admin</h4>
 
