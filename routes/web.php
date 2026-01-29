@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AlatController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\PetugasController;
 use App\Http\Controllers\UserController;
 
@@ -27,9 +28,21 @@ Route::middleware(['auth'])->group(function () {
     Route::post('auth/logout', [AuthController::class, 'logout'])->name('logout');
 
     Route::middleware(['role:admin'])->group(function () {
-        Route::get('admin/dashboard', [AdminController::class, 'showDashboard'])->name('admin.dashboard');
-    });
+        Route::prefix('admin')->group(function () {
+            Route::get('/dashboard', [AdminController::class, 'showDashboard'])->name('admin.dashboard');
 
+            Route::get('peminjam', [UserController::class, 'peminjamList'])->name('admin.peminjam');
+            Route::prefix('petugas')->group(function () {
+                Route::get('/', [UserController::class, 'petugasList'])->name('admin.petugas');
+                Route::get('/create', [UserController::class, 'createPetugasForm'])->name('admin.petugas.create');
+                Route::post('/create', [UserController::class, 'createPetugas'])->name('admin.petugas.store');
+                Route::get('/edit/{id}', [UserController::class, 'editPetugasForm'])->name('admin.petugas.edit');
+                Route::post('/update', [UserController::class, 'updatePetugas'])->name('admin.petugas.update');
+                Route::post('/delete/{id}', [UserController::class, 'deletePetugas'])->name('admin.petugas.delete');
+            });
+            Route::resource('kategori', KategoriController::class);
+        });
+    });
     Route::middleware(['role:petugas'])->group(function () {
         Route::get('petugas/dashboard', [PetugasController::class, 'showDashboard'])->name('petugas.dashboard');
     });
