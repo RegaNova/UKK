@@ -21,6 +21,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/', function () {
         return view('welcome');
     });
+    Route::post('auth/logout', [AuthController::class, 'logout'])->name('logout');
 
     Route::resource('alat', AlatController::class);
     Route::post('auth/logout', [AuthController::class, 'logout'])->name('logout');

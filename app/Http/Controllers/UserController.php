@@ -8,6 +8,6 @@ class UserController extends Controller
 {
     public function showDashboard()
     {
-        return view('Dashboard.User');
+        return view('user.dasboard');
     }
 }

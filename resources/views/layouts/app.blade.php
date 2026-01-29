@@ -1,28 +1,39 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <title>@yield('title')</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body class="bg-gray-100 min-h-screen">
 
-    <!-- Navbar -->
-    <nav class="bg-indigo-600 text-white px-6 py-4 flex justify-between">
-        <h1 class="font-bold text-lg">Sistem Peminjaman Alat</h1>
+<body>
 
-        <form action="{{ route('logout') }}" method="POST">
-            @csrf
-            <button class="bg-red-500 px-4 py-1 rounded hover:bg-red-600">
-                Logout
-            </button>
-        </form>
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container-fluid">
+            <span class="navbar-brand">Aplikasi Peminjaman Alat</span>
+
+            <form action="{{ route('logout') }}" method="POST">
+                @csrf
+                <button type="submit" class="btn btn-outline-light btn-sm">
+                    Logout
+                </button>
+            </form>
+        </div>
     </nav>
 
-    <!-- Content -->
-    <main class="p-6">
-        @yield('content')
-    </main>
+
+    <div class="container-fluid">
+        <div class="row">
+            <aside class="col-md-2 bg-light min-vh-100 p-3">
+                @yield('sidebar')
+            </aside>
+            <main class="col-md-10 p-4">
+                @yield('content')
+            </main>
+        </div>
+    </div>
 
 </body>
+
 </html>
