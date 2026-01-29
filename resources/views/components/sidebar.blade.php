@@ -1,62 +1,131 @@
 @props(['role'])
 
-<aside class="w-64 bg-indigo-700 text-white min-h-screen flex flex-col">
+{{-- Logic Class Active --}}
+@php
+    $activeClass = 'nav-link active d-flex align-items-center gap-2';
+    $inactiveClass = 'nav-link text-white-50 d-flex align-items-center gap-2';
+@endphp
 
-    <div class="h-16 flex items-center justify-center font-bold text-lg border-b border-indigo-600">
-        Peminjaman Alat
-    </div>
+<aside class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark vh-100" style="width: 280px;">
+    
+    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+        <span class="fs-4 fw-bold">
+            <i class="bi bi-tools me-2"></i>PinjamAlat
+        </span>
+    </a>
+    
+    <hr>
 
-    <nav class="flex-1 px-4 py-6 space-y-2">
+    <ul class="nav nav-pills flex-column mb-auto gap-1">
 
         {{-- ADMIN --}}
         @if ($role === 'admin')
-            <p class="text-xs uppercase text-indigo-300 mt-2">Admin</p>
-            <a href="#" class="menu active">Dashboard</a>
-            <a href="#" class="menu">Kelola User</a>
-            <a href="#" class="menu">Data Alat</a>
-            <a href="#" class="menu">Kategori Alat</a>
-            <a href="#" class="menu">Data Peminjaman</a>
-            <a href="#" class="menu">Data Pengembalian</a>
-            <a href="#" class="menu">Log Aktivitas</a>
-            <a href="#" class="menu">Laporan</a>
+            <li class="nav-item">
+                <div class="text-uppercase small fw-bold text-white-50 mt-2 mb-1 ms-3" style="font-size: 0.75rem;">
+                    Admin
+                </div>
+            </li>
+            <li>
+                <a href="{{ route('admin.dashboard') }}" 
+                   class="{{ request()->routeIs('admin.dashboard') ? $activeClass : $inactiveClass }}" 
+                   aria-current="page">
+                    <i class="bi bi-speedometer2"></i>
+                    Dashboard
+                </a>
+            </li>
+            <li>
+                <a href="#" class="{{ request()->routeIs('admin.users*') ? $activeClass : $inactiveClass }}">
+                    <i class="bi bi-people"></i>
+                    Kelola User
+                </a>
+            </li>
+            <li>
+                <a href="#" class="{{ request()->routeIs('admin.alat*') ? $activeClass : $inactiveClass }}">
+                    <i class="bi bi-box-seam"></i>
+                    Data Alat
+                </a>
+            </li>
+            <li>
+                <a href="#" class="{{ request()->routeIs('admin.kategori*') ? $activeClass : $inactiveClass }}">
+                    <i class="bi bi-tags"></i>
+                    Kategori
+                </a>
+            </li>
         @endif
 
         {{-- PETUGAS --}}
         @if ($role === 'petugas')
-            <p class="text-xs uppercase text-indigo-300 mt-2">Petugas</p>
-            <a href="#" class="menu active">Dashboard</a>
-            <a href="#" class="menu">Persetujuan Peminjaman</a>
-            <a href="#" class="menu">Monitoring Pengembalian</a>
-            <a href="#" class="menu">Cetak Laporan</a>
+            <li class="nav-item">
+                <div class="text-uppercase small fw-bold text-white-50 mt-2 mb-1 ms-3" style="font-size: 0.75rem;">
+                    Petugas
+                </div>
+            </li>
+            <li>
+                <a href="{{ route('petugas.dashboard') }}" 
+                   class="{{ request()->routeIs('petugas.dashboard') ? $activeClass : $inactiveClass }}">
+                    <i class="bi bi-grid"></i>
+                    Dashboard
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('petugas.approvals') }}" 
+                   class="{{ request()->routeIs('petugas.approvals') ? $activeClass : $inactiveClass }}">
+                    <i class="bi bi-check-circle"></i>
+                    Persetujuan
+                </a>
+            </li>
         @endif
 
-        {{-- PEMINJAM --}}
+        {{-- USER --}}
         @if ($role === 'user')
-            <p class="text-xs uppercase text-indigo-300 mt-2">Peminjam</p>
-            <a href="#" class="menu active">Dashboard</a>
-            <a href="#" class="menu">Daftar Alat</a>
-            <a href="#" class="menu">Ajukan Peminjaman</a>
-            <a href="#" class="menu">Pengembalian Alat</a>
-            <a href="#" class="menu">Riwayat</a>
+            <li class="nav-item">
+                <div class="text-uppercase small fw-bold text-white-50 mt-2 mb-1 ms-3" style="font-size: 0.75rem;">
+                    Peminjam
+                </div>
+            </li>
+            <li>
+                <a href="{{ route('user.dashboard') }}" 
+                   class="{{ request()->routeIs('user.dashboard') ? $activeClass : $inactiveClass }}">
+                    <i class="bi bi-house-door"></i>
+                    Dashboard
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('user.alat') }}" 
+                   class="{{ request()->routeIs('user.alat') ? $activeClass : $inactiveClass }}">
+                    <i class="bi bi-search"></i>
+                    Daftar Alat
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('user.peminjaman') }}" 
+                   class="{{ request()->routeIs('user.peminjaman') ? $activeClass : $inactiveClass }}">
+                    <i class="bi bi-cart3"></i>
+                    Peminjaman
+                </a>
+            </li>
         @endif
 
-    </nav>
+    </ul>
 
-    <div class="p-4 border-t border-indigo-600">
-        <form method="POST" action="{{ route('logout') }}">
-            @csrf
-            <button class="w-full px-4 py-2 rounded hover:bg-red-600 transition">
-                Logout
-            </button>
-        </form>
+    <hr>
+
+    <div class="dropdown">
+        <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+            <div class="bg-secondary rounded-circle d-flex align-items-center justify-content-center text-white me-2" style="width: 32px; height: 32px;">
+                <i class="bi bi-person-fill"></i>
+            </div>
+            <strong>{{ Auth::user()->name }}</strong>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
+            <li><a class="dropdown-item" href="#">Profile</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li>
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="dropdown-item text-danger">Sign out</button>
+                </form>
+            </li>
+        </ul>
     </div>
 </aside>
-
-<style>
-    .menu {
-        @apply block px-4 py-2 rounded hover:bg-indigo-800 transition;
-    }
-    .menu.active {
-        @apply bg-indigo-800;
-    }
-</style>
