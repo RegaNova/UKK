@@ -37,7 +37,7 @@
             @if($kategoriCount === 0)
                 <div class="alert alert-warning" role="alert">
                     <strong>Perhatian!</strong> Anda belum memiliki kategori. 
-                    <a href="{{ route('admin.kategori.create') }}">Tambah kategori</a> terlebih dahulu untuk menambah alat.
+                    <a href="{{ route('kategori.create') }}">Tambah kategori</a> terlebih dahulu untuk menambah alat.
                 </div>
             @endif
 

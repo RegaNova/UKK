@@ -7,7 +7,7 @@
 
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h4 class="fw-bold mb-0">Data Kategori</h4>
-                <a href="{{ route('admin.kategori.create') }}" class="btn btn-primary rounded-pill">
+                <a href="{{ route('kategori.create') }}" class="btn btn-primary rounded-pill">
                     + Tambah
                 </a>
             </div>
@@ -41,12 +41,12 @@
                         <td>{{ $item->deskripsi ?? '-' }}</td>
                         <td class="text-center align-middle">
                             <div class="d-flex justify-content-center gap-2">
-                                <a href="{{ route('admin.kategori.edit', $item->id) }}"
+                                <a href="{{ route('kategori.edit', $item->id) }}"
                                     class="btn btn-sm btn-warning rounded-pill px-3">
                                     Edit
                                 </a>
 
-                                <form action="{{ route('admin.kategori.destroy', $item->id) }}" method="POST" class="d-inline">
+                                <form action="{{ route('kategori.destroy', $item->id) }}" method="POST" class="d-inline">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-sm btn-danger rounded-pill px-3"

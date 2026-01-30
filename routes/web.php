@@ -41,7 +41,7 @@ Route::middleware(['auth'])->group(function () {
                 Route::delete('/delete/{id}', [UserController::class, 'deletePetugas'])->name('admin.petugas.delete');
             });
             Route::resource('kategori', KategoriController::class);
-        });
+        }); 
     });
     Route::middleware(['role:petugas'])->group(function () {
         Route::get('petugas/dashboard', [PetugasController::class, 'showDashboard'])->name('petugas.dashboard');

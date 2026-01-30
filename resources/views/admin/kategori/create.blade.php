@@ -8,12 +8,12 @@
         <div class="card-body">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h4 class="fw-bold mb-0">Tambah Kategori</h4>
-                <a href="{{ route('admin.kategori.index') }}" class="btn btn-secondary rounded-pill">
+                <a href="{{ route('kategori.index') }}" class="btn btn-secondary rounded-pill">
                     Kembali
                 </a>
             </div>
 
-            <form action="{{ route('admin.kategori.store') }}" method="POST">
+            <form action="{{ route('kategori.store') }}" method="POST">
                 @csrf
 
                 <div class="mb-3">
@@ -41,7 +41,7 @@
                     <button type="submit" class="btn btn-primary rounded-pill px-4">
                         Simpan
                     </button>
-                    <a href="{{ route('admin.kategori.index') }}" class="btn btn-secondary rounded-pill px-4">
+                    <a href="{{ route('kategori.index') }}" class="btn btn-secondary rounded-pill px-4">
                         Batal
                     </a>
                 </div>

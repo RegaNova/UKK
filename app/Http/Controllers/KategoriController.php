@@ -32,7 +32,7 @@ class KategoriController extends Controller
     public function store(KategoriRequest $request)
     {
         Kategori::create($request->validated());
-        return redirect()->route('admin.kategori.index')->with("success", "Kategori berhasil ditambahkan");
+        return redirect()->route('kategori.index')->with("success", "Kategori berhasil ditambahkan");
     }
 
     /**
@@ -51,7 +51,7 @@ class KategoriController extends Controller
     {
         $kategori = Kategori::findOrFail($id);
         $kategori->update($request->validated());
-        return redirect()->route('admin.kategori.index')->with("success", "Kategori berhasil diupdate");
+        return redirect()->route('kategori.index')->with("success", "Kategori berhasil diupdate");
     }
 
     /**
@@ -63,11 +63,11 @@ class KategoriController extends Controller
         
         // Check if any alat uses this kategori
         if (Alat::where('kategori_id', $kategori->id)->exists()) {
-            return redirect()->route('admin.kategori.index')->with("error", "Kategori masih digunakan di alat");
+            return redirect()->route('kategori.index')->with("error", "Kategori masih digunakan di alat");
         }
         
         $kategori->delete();
-        return redirect()->route('admin.kategori.index')->with("success", "Kategori berhasil dihapus");
+        return redirect()->route('kategori.index')->with("success", "Kategori berhasil dihapus");
     }
 }
 
