@@ -33,24 +33,13 @@
                     </div>
                 </a>
 
-                {{-- Menu Dropdown --}}
                 <ul class="dropdown-menu dropdown-menu-end shadow border-0 mt-2" aria-labelledby="adminDropdown">
                     <li>
-                        <h6 class="dropdown-header small text-muted">Kelola Akun</h6>
-                    </li>
-                    <li>
-                        <a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">
-                            <i class="bi bi-person text-secondary"></i> Profil Saya
-                        </a>
-                    </li>
-                    <li><hr class="dropdown-divider opacity-50"></li>
-                    <li>
-                        {{-- Form Logout --}}
                         <form action="{{ route('logout') }}" method="POST" class="m-0">
                             @csrf
                             <button type="submit" class="dropdown-item text-danger d-flex align-items-center gap-2 py-2">
                                 <i class="bi bi-box-arrow-right"></i> 
-                                <span>Keluar / Logout</span>
+                                <span>Logout</span>
                             </button>
                         </form>
                     </li>

@@ -34,25 +34,25 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('admin.petugas') }}" class="{{ request()->routeIs('admin.petugas.*') ? $activeClass : $inactiveClass }}">
+                <a href="#" class="{{ request()->routeIs('admin.petugas.*') ? $activeClass : $inactiveClass }}">
                     <i class="bi bi-people"></i>
                     Kelola Petugas
                 </a>
             </li>
             <li>
-                <a href="{{ route('admin.peminjam') }}" class="{{ request()->routeIs('admin.peminjam') ? $activeClass : $inactiveClass }}">
+                <a href="#" class="{{ request()->routeIs('admin.peminjam') ? $activeClass : $inactiveClass }}">
                     <i class="bi bi-person-badge"></i>
                     Kelola Peminjam
                 </a>
             </li>
             <li>
-                <a href="{{ route('alat.index') }}" class="{{ request()->routeIs('alat.*') ? $activeClass : $inactiveClass }}">
+                <a href="#" class="{{ request()->routeIs('alat.*') ? $activeClass : $inactiveClass }}">
                     <i class="bi bi-box-seam"></i>
                     Data Alat
                 </a>
             </li>
             <li>
-                <a href="{{ route('kategori.index') }}" class="{{ request()->routeIs('kategori.*') ? $activeClass : $inactiveClass }}">
+                <a href="#" class="{{ request()->routeIs('kategori.*') ? $activeClass : $inactiveClass }}">
                     <i class="bi bi-tags"></i>
                     Kategori
                 </a>
@@ -114,24 +114,4 @@
 
     </ul>
 
-    <hr>
-
-    <div class="dropdown">
-        <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-            <div class="bg-secondary rounded-circle d-flex align-items-center justify-content-center text-white me-2" style="width: 32px; height: 32px;">
-                <i class="bi bi-person-fill"></i>
-            </div>
-            <strong>{{ Auth::user()->name }}</strong>
-        </a>
-        <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-            <li><a class="dropdown-item" href="#">Profile</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li>
-                <form action="{{ route('logout') }}" method="POST">
-                    @csrf
-                    <button type="submit" class="dropdown-item text-danger">Sign out</button>
-                </form>
-            </li>
-        </ul>
-    </div>
 </aside>
