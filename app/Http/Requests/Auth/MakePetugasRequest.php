@@ -24,13 +24,13 @@ class MakePetugasRequest extends FormRequest
         $rules = [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8|confirmed',
+            'password' => 'required|string|min:8',
         ];
 
         if ($this->isMethod('PUT') || $this->isMethod('PATCH')) {
             $userId = $this->route('user')->id ?? null;
             $rules['email'] = 'sometimes|string|email|max:255|unique:users,email,' . $userId;
-            $rules['password'] = 'sometimes|string|min:8|confirmed';
+            $rules['password'] = 'sometimes|string|min:8';
         }
 
         return $rules;

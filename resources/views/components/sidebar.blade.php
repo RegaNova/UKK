@@ -34,19 +34,25 @@
                 </a>
             </li>
             <li>
-                <a href="#" class="{{ request()->routeIs('admin.users*') ? $activeClass : $inactiveClass }}">
+                <a href="{{ route('admin.petugas') }}" class="{{ request()->routeIs('admin.petugas.*') ? $activeClass : $inactiveClass }}">
                     <i class="bi bi-people"></i>
-                    Kelola User
+                    Kelola Petugas
                 </a>
             </li>
             <li>
-                <a href="#" class="{{ request()->routeIs('admin.alat*') ? $activeClass : $inactiveClass }}">
+                <a href="{{ route('admin.peminjam') }}" class="{{ request()->routeIs('admin.peminjam') ? $activeClass : $inactiveClass }}">
+                    <i class="bi bi-person-badge"></i>
+                    Kelola Peminjam
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('alat.index') }}" class="{{ request()->routeIs('alat.*') ? $activeClass : $inactiveClass }}">
                     <i class="bi bi-box-seam"></i>
                     Data Alat
                 </a>
             </li>
             <li>
-                <a href="#" class="{{ request()->routeIs('admin.kategori*') ? $activeClass : $inactiveClass }}">
+                <a href="{{ route('kategori.index') }}" class="{{ request()->routeIs('kategori.*') ? $activeClass : $inactiveClass }}">
                     <i class="bi bi-tags"></i>
                     Kategori
                 </a>

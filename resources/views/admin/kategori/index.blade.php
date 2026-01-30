@@ -1,23 +1,15 @@
 @extends('layouts.app')
 
-@section('title', 'Data Alat')
-
 @section('content')
 <div class="container pt-4">
     <div class="card border-0 shadow-sm">
         <div class="card-body">
 
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <h4 class="fw-bold mb-0">Data Alat</h4>
-                @if($kategoriCount > 0)
-                    <a href="{{ route('alat.create') }}" class="btn btn-primary rounded-pill">
-                        + Tambah
-                    </a>
-                @else
-                    <button class="btn btn-secondary rounded-pill" disabled title="Tidak ada kategori">
-                        + Tambah
-                    </button>
-                @endif
+                <h4 class="fw-bold mb-0">Data Kategori</h4>
+                <a href="{{ route('admin.kategori.create') }}" class="btn btn-primary rounded-pill">
+                    + Tambah
+                </a>
             </div>
 
             @if(session('success'))
@@ -34,44 +26,31 @@
                 </div>
             @endif
 
-            @if($kategoriCount === 0)
-                <div class="alert alert-warning" role="alert">
-                    <strong>Perhatian!</strong> Anda belum memiliki kategori. 
-                    <a href="{{ route('admin.kategori.create') }}">Tambah kategori</a> terlebih dahulu untuk menambah alat.
-                </div>
-            @endif
-
             <table class="table table-hover align-middle">
                 <thead class="table-light">
                     <tr>
-                        <th>Nama</th>
-                        <th>Kategori</th>
-                        <th>Jumlah</th>
-                        <th>Keterangan</th>
+                        <th>Nama Kategori</th>
+                        <th>Deskripsi</th>
                         <th class="text-center">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse($alat as $item)
+                    @forelse($kategori as $item)
                     <tr>
                         <td class="fw-medium">{{ $item->nama }}</td>
-                        <td>
-                            <span class="badge bg-secondary">{{ $item->kategori->nama ?? '-' }}</span>
-                        </td>
-                        <td>{{ $item->jumlah }}</td>
-                        <td>{{ $item->keterangan ?? '-' }}</td>
+                        <td>{{ $item->deskripsi ?? '-' }}</td>
                         <td class="text-center align-middle">
                             <div class="d-flex justify-content-center gap-2">
-                                <a href="{{ route('alat.edit', $item->id) }}"
+                                <a href="{{ route('admin.kategori.edit', $item->id) }}"
                                     class="btn btn-sm btn-warning rounded-pill px-3">
                                     Edit
                                 </a>
 
-                                <form action="{{ route('alat.destroy', $item->id) }}" method="POST" class="d-inline">
+                                <form action="{{ route('admin.kategori.destroy', $item->id) }}" method="POST" class="d-inline">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-sm btn-danger rounded-pill px-3"
-                                        onclick="return confirm('Hapus alat ini?')">
+                                        onclick="return confirm('Hapus kategori ini?')">
                                         Hapus
                                     </button>
                                 </form>
@@ -80,8 +59,8 @@
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="5" class="text-center py-4 text-muted">
-                            Tidak ada data alat
+                        <td colspan="3" class="text-center py-4 text-muted">
+                            Tidak ada data kategori
                         </td>
                     </tr>
                     @endforelse

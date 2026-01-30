@@ -32,16 +32,7 @@ class KategoriController extends Controller
     public function store(KategoriRequest $request)
     {
         Kategori::create($request->validated());
-        return redirect()->back()->with("success", "Kategori berhasil ditambahkan");
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show( $id)
-    {
-        $kategori = Kategori::find($id);
-        return view("admin.kategori.show", compact("kategori"));
+        return redirect()->route('admin.kategori.index')->with("success", "Kategori berhasil ditambahkan");
     }
 
     /**
@@ -49,7 +40,7 @@ class KategoriController extends Controller
      */
     public function edit($id)
     {
-        $kategori = Kategori::find($id);
+        $kategori = Kategori::findOrFail($id);
         return view("admin.kategori.edit", compact("kategori"));
     }
 
@@ -58,8 +49,9 @@ class KategoriController extends Controller
      */
     public function update(KategoriRequest $request, $id)
     {
-        $kategori = Kategori::find($id);
+        $kategori = Kategori::findOrFail($id);
         $kategori->update($request->validated());
+        return redirect()->route('admin.kategori.index')->with("success", "Kategori berhasil diupdate");
     }
 
     /**
@@ -67,11 +59,15 @@ class KategoriController extends Controller
      */
     public function destroy($id)
     {
-        $kategori = Kategori::find($id);
-        if (!Alat::exists($kategori->id)) {
-            return redirect()->back()->with("error","Kategori Masih digunakan di alat");
+        $kategori = Kategori::findOrFail($id);
+        
+        // Check if any alat uses this kategori
+        if (Alat::where('kategori_id', $kategori->id)->exists()) {
+            return redirect()->route('admin.kategori.index')->with("error", "Kategori masih digunakan di alat");
         }
+        
         $kategori->delete();
-        return redirect()->back()->with("success","Kategori Berhasil Dihapus");
+        return redirect()->route('admin.kategori.index')->with("success", "Kategori berhasil dihapus");
     }
 }
+

@@ -38,7 +38,7 @@ Route::middleware(['auth'])->group(function () {
                 Route::post('/create', [UserController::class, 'createPetugas'])->name('admin.petugas.store');
                 Route::get('/edit/{id}', [UserController::class, 'editPetugasForm'])->name('admin.petugas.edit');
                 Route::post('/update', [UserController::class, 'updatePetugas'])->name('admin.petugas.update');
-                Route::post('/delete/{id}', [UserController::class, 'deletePetugas'])->name('admin.petugas.delete');
+                Route::delete('/delete/{id}', [UserController::class, 'deletePetugas'])->name('admin.petugas.delete');
             });
             Route::resource('kategori', KategoriController::class);
         });

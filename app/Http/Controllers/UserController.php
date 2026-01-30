@@ -4,74 +4,99 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Auth\MakePetugasRequest;
 use App\Models\User;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+    /* ===================== LIST ===================== */
 
     public function peminjamList()
     {
-        $peminjam = User::where("role", "user")->orderBy("id", "desc")->paginate(10);
-        return view("admin.petugas.peminjam", compact("peminjam"));
+        $peminjam = User::where('role', 'user')
+            ->latest()
+            ->paginate(10);
+
+        return view('admin.petugas.peminjam', compact('peminjam'));
     }
 
     public function petugasList()
     {
-        $petugas = User::where("role", "petugas")->orderBy("id", "desc")->paginate(10);
-        return view("admin.petugas.index", compact("petugas"));
+        $petugas = User::where('role', 'petugas')
+            ->latest()
+            ->paginate(10);
+
+        return view('admin.petugas.index', compact('petugas'));
     }
+
+    /* ===================== CREATE ===================== */
 
     public function createPetugasForm()
     {
-        return view("admin.petugas.create");
+        return view('admin.petugas.create');
     }
 
     public function createPetugas(MakePetugasRequest $request)
     {
         User::create([
-            "name" => $request->name,
-            "email" => $request->email,
-            "password" => bcrypt($request->password),
-            "role" => "petugas",
+            'name'     => $request->name,
+            'email'    => $request->email,
+            'password' => Hash::make($request->password),
+            'role'     => 'petugas',
         ]);
 
-        return redirect()->back()->with("success", "Petugas berhasil ditambahkan");
+        return redirect()
+            ->route('admin.petugas')
+            ->with('success', 'Petugas berhasil ditambahkan');
     }
 
-    public function editPetugasForm($id)
-    {
-        $petugas = User::find($id);
-        if (!$petugas) {
-            return redirect()->back()->with("error", "Petugas tidak ditemukan");
-        }
-        return view("admin.petugas.edit", compact("petugas"));
-    }
+    /* ===================== EDIT ===================== */
 
-    public function updatePetugas(MakePetugasRequest $request)
+    public function editPetugasForm(User $user)
     {
-        $user = User::find($request->id);
-        if (!$user) {
-            return redirect()->back()->with("error", "Petugas tidak ditemukan");
-        }
+        $this->ensurePetugas($user);
 
-        $user->update([
-            "name" => $request->name,
-            "email" => $request->email,
-            "password" => bcrypt($request->password),
+        return view('admin.petugas.edit', [
+            'petugas' => $user,
         ]);
-
-        return redirect()->back()->with("success", "Petugas berhasil diupdate");
     }
+
+    public function updatePetugas(MakePetugasRequest $request, User $user)
+    {
+        $this->ensurePetugas($user);
+
+        $data = $request->only('name', 'email');
+
+        if ($request->filled('password')) {
+            $data['password'] = Hash::make($request->password);
+        }
+
+        $user->update($data);
+
+        return redirect()
+            ->route('admin.petugas')
+            ->with('success', 'Petugas berhasil diperbarui');
+    }
+
+    /* ===================== DELETE ===================== */
 
     public function deletePetugas($id)
     {
-        $user = User::find($id);
-        if (!$user) {
-            return redirect()->back()->with("error", "Petugas tidak ditemukan");
-        }
+        $user = User::findOrFail($id);
+        $this->ensurePetugas($user);
 
         $user->delete();
 
-        return redirect()->back()->with("success", "Petugas berhasil dihapus");
+        return redirect()
+            ->route('admin.petugas')
+            ->with('success', 'Petugas berhasil dihapus');
+    }
+
+    /* ===================== GUARD ===================== */
+
+    private function ensurePetugas(User $user): void
+    {
+        if ($user->role !== 'petugas') {
+            abort(404);
+        }
     }
 }

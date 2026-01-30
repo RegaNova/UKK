@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Data Alat')
+@section('title', 'Data Petugas')
 
 @section('content')
 <div class="container pt-4">
@@ -8,16 +8,10 @@
         <div class="card-body">
 
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <h4 class="fw-bold mb-0">Data Alat</h4>
-                @if($kategoriCount > 0)
-                    <a href="{{ route('alat.create') }}" class="btn btn-primary rounded-pill">
-                        + Tambah
-                    </a>
-                @else
-                    <button class="btn btn-secondary rounded-pill" disabled title="Tidak ada kategori">
-                        + Tambah
-                    </button>
-                @endif
+                <h4 class="fw-bold mb-0">Data Petugas</h4>
+                <a href="{{ route('admin.petugas.create') }}" class="btn btn-primary rounded-pill">
+                    + Tambah Petugas
+                </a>
             </div>
 
             @if(session('success'))
@@ -34,44 +28,35 @@
                 </div>
             @endif
 
-            @if($kategoriCount === 0)
-                <div class="alert alert-warning" role="alert">
-                    <strong>Perhatian!</strong> Anda belum memiliki kategori. 
-                    <a href="{{ route('admin.kategori.create') }}">Tambah kategori</a> terlebih dahulu untuk menambah alat.
-                </div>
-            @endif
-
             <table class="table table-hover align-middle">
                 <thead class="table-light">
                     <tr>
                         <th>Nama</th>
-                        <th>Kategori</th>
-                        <th>Jumlah</th>
-                        <th>Keterangan</th>
+                        <th>Email</th>
+                        <th>Role</th>
                         <th class="text-center">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse($alat as $item)
+                    @forelse($petugas as $item)
                     <tr>
-                        <td class="fw-medium">{{ $item->nama }}</td>
+                        <td class="fw-medium">{{ $item->name }}</td>
+                        <td>{{ $item->email }}</td>
                         <td>
-                            <span class="badge bg-secondary">{{ $item->kategori->nama ?? '-' }}</span>
+                            <span class="badge bg-info text-dark">{{ ucfirst($item->role) }}</span>
                         </td>
-                        <td>{{ $item->jumlah }}</td>
-                        <td>{{ $item->keterangan ?? '-' }}</td>
                         <td class="text-center align-middle">
                             <div class="d-flex justify-content-center gap-2">
-                                <a href="{{ route('alat.edit', $item->id) }}"
+                                <a href="{{ route('admin.petugas.edit', $item->id) }}"
                                     class="btn btn-sm btn-warning rounded-pill px-3">
                                     Edit
                                 </a>
 
-                                <form action="{{ route('alat.destroy', $item->id) }}" method="POST" class="d-inline">
+                                <form action="{{ route('admin.petugas.delete', $item->id) }}" method="POST" class="d-inline">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-sm btn-danger rounded-pill px-3"
-                                        onclick="return confirm('Hapus alat ini?')">
+                                        onclick="return confirm('Hapus petugas ini?')">
                                         Hapus
                                     </button>
                                 </form>
@@ -80,8 +65,8 @@
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="5" class="text-center py-4 text-muted">
-                            Tidak ada data alat
+                        <td colspan="4" class="text-center py-4 text-muted">
+                            Tidak ada data petugas
                         </td>
                     </tr>
                     @endforelse
