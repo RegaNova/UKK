@@ -1,6 +1,4 @@
 @props(['role'])
-
-{{-- Logic Class Active --}}
 @php
     $activeClass = 'nav-link active d-flex align-items-center gap-2';
     $inactiveClass = 'nav-link text-white-50 d-flex align-items-center gap-2';
@@ -29,37 +27,31 @@
                 <a href="{{ route('admin.dashboard') }}" 
                    class="{{ request()->routeIs('admin.dashboard') ? $activeClass : $inactiveClass }}" 
                    aria-current="page">
-                    <i class="bi bi-speedometer2"></i>
                     Dashboard
                 </a>
             </li>
             <li>
-                <a href="#" class="{{ request()->routeIs('admin.petugas.*') ? $activeClass : $inactiveClass }}">
-                    <i class="bi bi-people"></i>
+                <a href="{{ route('admin.petugas') }}" class="{{ request()->routeIs('admin.petugas.*') ? $activeClass : $inactiveClass }}">
                     Kelola Petugas
                 </a>
             </li>
             <li>
-                <a href="#" class="{{ request()->routeIs('admin.peminjam') ? $activeClass : $inactiveClass }}">
-                    <i class="bi bi-person-badge"></i>
+                <a href="{{ route('admin.peminjam') }}" class="{{ request()->routeIs('admin.peminjam.*') ? $activeClass : $inactiveClass }}">
                     Kelola Peminjam
                 </a>
             </li>
             <li>
-                <a href="#" class="{{ request()->routeIs('alat.*') ? $activeClass : $inactiveClass }}">
-                    <i class="bi bi-box-seam"></i>
+                <a href="{{ route("alat.index") }}" class="{{ request()->routeIs('alat.*') ? $activeClass : $inactiveClass }}">
                     Data Alat
                 </a>
             </li>
             <li>
-                <a href="#" class="{{ request()->routeIs('kategori.*') ? $activeClass : $inactiveClass }}">
-                    <i class="bi bi-tags"></i>
+                <a href="{{ route('kategori.index') }}" class="{{ request()->routeIs('kategori.*') ? $activeClass : $inactiveClass }}">
                     Kategori
                 </a>
             </li>
         @endif
 
-        {{-- PETUGAS --}}
         @if ($role === 'petugas')
             <li class="nav-item">
                 <div class="text-uppercase small fw-bold text-white-50 mt-2 mb-1 ms-3" style="font-size: 0.75rem;">

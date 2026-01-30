@@ -1,32 +1,35 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <title>@yield('title')</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </head>
+
 <body>
 
-<div class="d-flex">
+    <div class="d-flex">
 
-    <!-- SIDEBAR KIRI -->
-    <x-sidebar role="{{ auth()->user()->role }}" />
+        <!-- SIDEBAR KIRI -->
+        <x-sidebar role="{{ auth()->user()->role }}" />
 
-    <!-- KONTEN KANAN -->
-    <div class="flex-fill">
+        <!-- KONTEN KANAN -->
+        <div class="flex-fill">
 
-        <!-- HEADER -->
-        @include('layouts.topbar')
+            <!-- HEADER -->
+            @include('layouts.topbar')
 
-        <!-- CONTENT -->
-        <main class="p-4">
-            @yield('content')
-        </main>
+            <!-- CONTENT -->
+            <main class="p-4">
+                @yield('content')
+            </main>
+
+        </div>
 
     </div>
 
-</div>
-
 </body>
+
 </html>
