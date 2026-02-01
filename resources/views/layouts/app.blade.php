@@ -16,7 +16,7 @@
         <x-sidebar role="{{ auth()->user()->role }}" />
 
         <!-- KONTEN KANAN -->
-        <div class="flex-fill">
+        <div class="flex-fill" style="margin-left: 280px;">
 
             <!-- HEADER -->
             @include('layouts.topbar')

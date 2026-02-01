@@ -19,5 +19,12 @@ class AdminSeeder extends Seeder
             'password' => bcrypt('admin'),
             'role' => 'admin',
         ]);
+
+        User::create([
+            'name' => 'Petugas',
+            'email' => 'petugas@petugas.com',
+            'password'=> bcrypt('petugas'),
+            'role' => 'petugas',
+        ]);
     }
 }

@@ -28,9 +28,11 @@ class MakePetugasRequest extends FormRequest
         ];
 
         if ($this->isMethod('PUT') || $this->isMethod('PATCH')) {
-            $userId = $this->route('user')->id ?? null;
-            $rules['email'] = 'sometimes|string|email|max:255|unique:users,email,' . $userId;
-            $rules['password'] = 'sometimes|string|min:8';
+            $rules =[
+                'name' => 'sometimes|string|max:255',
+                'email' => 'sometimes|string|email|max:255|unique:users,email,' . $this->route('id'),
+                'password' => 'sometimes|string|min:8|confirmed',
+            ];
         }
 
         return $rules;

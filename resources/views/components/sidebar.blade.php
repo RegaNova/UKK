@@ -4,7 +4,7 @@
     $inactiveClass = 'nav-link text-white-50 d-flex align-items-center gap-2';
 @endphp
 
-<aside class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark vh-100" style="width: 280px;">
+<aside class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark position-fixed" style="width: 280px; height: 100vh; top: 0; left: 0; overflow-y: auto; z-index: 1000;">
     
     <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
         <span class="fs-4 fw-bold">
@@ -66,8 +66,8 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('petugas.approvals') }}" 
-                   class="{{ request()->routeIs('petugas.approvals') ? $activeClass : $inactiveClass }}">
+                <a href="{{ route('petugas.peminjaman') }}" 
+                   class="{{ request()->routeIs('petugas.peminjaman') ? $activeClass : $inactiveClass }}">
                     <i class="bi bi-check-circle"></i>
                     Persetujuan
                 </a>
@@ -88,13 +88,7 @@
                     Dashboard
                 </a>
             </li>
-            <li>
-                <a href="{{ route('user.alat') }}" 
-                   class="{{ request()->routeIs('user.alat') ? $activeClass : $inactiveClass }}">
-                    <i class="bi bi-search"></i>
-                    Daftar Alat
-                </a>
-            </li>
+            
             <li>
                 <a href="{{ route('user.peminjaman') }}" 
                    class="{{ request()->routeIs('user.peminjaman') ? $activeClass : $inactiveClass }}">

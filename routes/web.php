@@ -7,7 +7,10 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\PetugasController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\PeminjamanController;
+use App\Http\Controllers\PeminjamController;
 
+Route::redirect('/', '/auth/login');
 
 Route::middleware(['guest'])->group(function () {
     Route::prefix('auth')->group(function () {
@@ -24,10 +27,10 @@ Route::middleware(['auth'])->group(function () {
     });
     Route::post('auth/logout', [AuthController::class, 'logout'])->name('logout');
 
-    Route::resource('alat', AlatController::class);
     Route::post('auth/logout', [AuthController::class, 'logout'])->name('logout');
 
     Route::middleware(['role:admin'])->group(function () {
+        Route::resource('alat', AlatController::class);
         Route::prefix('admin')->group(function () {
             Route::get('/dashboard', [AdminController::class, 'showDashboard'])->name('admin.dashboard');
 
@@ -37,17 +40,28 @@ Route::middleware(['auth'])->group(function () {
                 Route::get('/create', [UserController::class, 'createPetugasForm'])->name('admin.petugas.create');
                 Route::post('/create', [UserController::class, 'createPetugas'])->name('admin.petugas.store');
                 Route::get('/edit/{id}', [UserController::class, 'editPetugasForm'])->name('admin.petugas.edit');
-                Route::post('/update', [UserController::class, 'updatePetugas'])->name('admin.petugas.update');
+                Route::put('/update', [UserController::class, 'updatePetugas'])->name('admin.petugas.update');
                 Route::delete('/delete/{id}', [UserController::class, 'deletePetugas'])->name('admin.petugas.delete');
             });
             Route::resource('kategori', KategoriController::class);
-        }); 
+        });
     });
     Route::middleware(['role:petugas'])->group(function () {
         Route::get('petugas/dashboard', [PetugasController::class, 'showDashboard'])->name('petugas.dashboard');
+        Route::get('petugas/peminjaman', [PetugasController::class, 'showPeminjamanList'])->name('petugas.peminjaman');
+        Route::post('petugas/peminjaman/{id}/approve', [PetugasController::class, 'approvePeminjaman'])->name('petugas.peminjaman.approve');
+        Route::post('petugas/peminjaman/{id}/reject', [PetugasController::class, 'rejectPeminjaman'])->name('petugas.peminjaman.reject');
     });
 
     Route::middleware(['role:user'])->group(function () {
-        Route::get('user/dashboard', [UserController::class, 'showDashboard'])->name('user.dashboard');
-    });
+        Route::get('user/dashboard', [PeminjamController::class, 'showDashboard'])->name('user.dashboard');
+
+        // Peminjaman routes for users
+        Route::get('user/peminjaman', [PeminjamanController::class, 'index'])->name('user.peminjaman');
+        Route::get('user/peminjaman/create', [PeminjamanController::class, 'create'])->name('user.peminjaman.create');
+        Route::post('user/peminjaman', [PeminjamanController::class, 'store'])->name('user.peminjaman.store');
+        Route::get('user/peminjaman/{id}', [PeminjamanController::class, 'show'])->name('user.peminjaman.show');
+
+        // User list route
+        Route::get('user/users', [UserController::class, 'userList'])->name('user.users');    });
 });

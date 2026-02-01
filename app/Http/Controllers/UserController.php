@@ -28,6 +28,15 @@ class UserController extends Controller
         return view('admin.petugas.index', compact('petugas'));
     }
 
+    public function userList()
+    {
+        $users = User::where('role', 'user')
+            ->latest()
+            ->get();
+
+        return view('user.users', compact('users'));
+    }
+
     /* ===================== CREATE ===================== */
 
     public function createPetugasForm()
@@ -51,20 +60,18 @@ class UserController extends Controller
 
     /* ===================== EDIT ===================== */
 
-    public function editPetugasForm(User $user)
+    public function editPetugasForm($id)
     {
-        $this->ensurePetugas($user);
+        $petugas = User::findOrFail($id);
 
-        return view('admin.petugas.edit', [
-            'petugas' => $user,
-        ]);
+        return view('admin.petugas.edit', compact('petugas'));
     }
 
     public function updatePetugas(MakePetugasRequest $request, User $user)
     {
         $this->ensurePetugas($user);
 
-        $data = $request->only('name', 'email');
+        $data = $request->validated();
 
         if ($request->filled('password')) {
             $data['password'] = Hash::make($request->password);
