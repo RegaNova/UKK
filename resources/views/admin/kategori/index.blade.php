@@ -42,14 +42,14 @@
                         <td class="text-center align-middle">
                             <div class="d-flex justify-content-center gap-2">
                                 <a href="{{ route('kategori.edit', $item->id) }}"
-                                    class="btn btn-sm btn-warning rounded-pill px-3">
+                                    class="btn btn-sm btn-outline-primary rounded-pill px-3">
                                     Edit
                                 </a>
 
                                 <form action="{{ route('kategori.destroy', $item->id) }}" method="POST" class="d-inline">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger rounded-pill px-3"
+                                    <button type="submit" class="btn btn-sm btn-outline-danger rounded-pill px-3"
                                         onclick="return confirm('Hapus kategori ini?')">
                                         Hapus
                                     </button>

@@ -3,126 +3,162 @@
 
 @section('content')
 <div class="container-fluid px-3 px-md-4">
-    <div class="d-flex align-items-center justify-content-between mb-4">
+
+    <!-- HEADER -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
-            <h4 class="fw-bold text-dark mb-0">Halo, {{ auth()->user()->name }} 👋</h4>
-            <p class="text-muted small mb-0">Kelola peminjaman alat dengan mudah.</p>
+            <h4 class="fw-bold mb-1">
+                Halo, {{ auth()->user()->name }} 👋
+            </h4>
+            <p class="text-muted small mb-0">
+                Kelola peminjaman alat dengan mudah
+            </p>
         </div>
-        <span class="badge bg-primary-subtle text-primary px-3 py-2 rounded-pill">
-            <i class="bi bi-calendar3 me-1"></i> {{ date('d M Y') }}
+
+        <span class="badge bg-primary text-white px-3 py-2 rounded-pill">
+            <i class="bi bi-calendar3 me-1"></i>
+            {{ now()->format('d M Y') }}
         </span>
     </div>
 
+    <!-- STATISTIC CARDS -->
+    <div class="row g-4 mb-4">
+
+        <!-- PEMINJAMAN AKTIF -->
+        <div class="col-12 col-md-6 col-xl-4">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body p-4">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <small class="text-uppercase text-muted fw-semibold">
+                                Peminjaman Aktif
+                            </small>
+                            <h2 class="fw-bold mt-1 mb-0">
+                                {{ $activeLoans ?? 0 }}
+                            </h2>
+                        </div>
+                        <span class="badge bg-primary bg-opacity-10 text-primary p-3 rounded-circle">
+                            <i class="bi bi-box-seam fs-4"></i>
+                        </span>
+                    </div>
+
+                    <a href="{{ route('user.peminjaman') }}"
+                       class="d-inline-flex align-items-center gap-1 text-primary small fw-medium mt-3 text-decoration-none">
+                        Lihat detail <i class="bi bi-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- MENUNGGU PERSETUJUAN -->
+        <div class="col-12 col-md-6 col-xl-4">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body p-4">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <small class="text-uppercase text-muted fw-semibold">
+                                Menunggu Persetujuan
+                            </small>
+                            <h2 class="fw-bold mt-1 mb-0">
+                                {{ $pendingLoans ?? 0 }}
+                            </h2>
+                        </div>
+                        <span class="badge bg-warning bg-opacity-10 text-warning p-3 rounded-circle">
+                            <i class="bi bi-clock-history fs-4"></i>
+                        </span>
+                    </div>
+
+                    <span class="text-warning small fw-medium d-block mt-3">
+                        <i class="bi bi-exclamation-circle me-1"></i>
+                        Dalam proses
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- TOTAL PEMINJAMAN -->
+        <div class="col-12 col-md-6 col-xl-4">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body p-4">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <small class="text-uppercase text-muted fw-semibold">
+                                Total Peminjaman
+                            </small>
+                            <h2 class="fw-bold mt-1 mb-0">
+                                {{ $totalLoans ?? 0 }}
+                            </h2>
+                        </div>
+                        <span class="badge bg-success bg-opacity-10 text-success p-3 rounded-circle">
+                            <i class="bi bi-check-circle fs-4"></i>
+                        </span>
+                    </div>
+
+                    <span class="badge bg-success mt-3">
+                        {{ $approvedLoans ?? 0 }} Disetujui
+                    </span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ACTION SECTION -->
     <div class="row g-4">
-        
-        {{-- Card Peminjaman Aktif --}}
-        <div class="col-12 col-sm-6 col-xl-4">
+
+        <!-- AJUKAN PEMINJAMAN -->
+        <div class="col-12 col-md-6">
             <div class="card border-0 shadow-sm h-100">
                 <div class="card-body p-4">
-                    <div class="d-flex justify-content-between align-items-center">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
                         <div>
-                            <h6 class="text-secondary text-uppercase fw-bold small mb-2">Peminjaman Aktif</h6>
-                            <h2 class="fw-bold mb-0">{{ $activeLoans ?? 0 }}</h2>
+                            <h6 class="fw-bold mb-1">
+                                Ajukan Peminjaman Baru
+                            </h6>
+                            <p class="text-muted small mb-0">
+                                Pilih alat yang ingin kamu pinjam
+                            </p>
                         </div>
-                        <div class="bg-primary bg-opacity-10 text-primary rounded-3 p-3">
-                            <i class="bi bi-box-seam fs-3"></i>
-                        </div>
+                        <span class="badge bg-info bg-opacity-10 text-info p-3 rounded-circle">
+                            <i class="bi bi-plus-lg fs-4"></i>
+                        </span>
                     </div>
-                    <div class="mt-3">
-                        <a href="{{ route('user.peminjaman') }}" class="text-primary small fw-medium text-decoration-none">
-                            Lihat detail <i class="bi bi-arrow-right"></i>
-                        </a>
-                    </div>
+
+                    <a href="{{ route('user.peminjaman.create') }}"
+                       class="btn btn-primary btn-sm">
+                        <i class="bi bi-plus me-1"></i> Ajukan Sekarang
+                    </a>
                 </div>
             </div>
         </div>
 
-        {{-- Card Peminjaman Pending --}}
-        <div class="col-12 col-sm-6 col-xl-4">
+        <!-- DAFTAR PENGGUNA -->
+        <div class="col-12 col-md-6">
             <div class="card border-0 shadow-sm h-100">
                 <div class="card-body p-4">
-                    <div class="d-flex justify-content-between align-items-center">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
                         <div>
-                            <h6 class="text-secondary text-uppercase fw-bold small mb-2">Menunggu Persetujuan</h6>
-                            <h2 class="fw-bold mb-0">{{ $pendingLoans ?? 0 }}</h2>
+                            <h6 class="fw-bold mb-1">
+                                Daftar Pengguna
+                            </h6>
+                            <p class="text-muted small mb-0">
+                                Lihat daftar pengguna sistem
+                            </p>
                         </div>
-                        <div class="bg-warning bg-opacity-10 text-warning rounded-3 p-3">
-                            <i class="bi bi-clock-history fs-3"></i>
-                        </div>
+                        <span class="badge bg-secondary bg-opacity-10 text-secondary p-3 rounded-circle">
+                            <i class="bi bi-people fs-4"></i>
+                        </span>
                     </div>
-                    <div class="mt-3">
-                        <span class="text-warning small fw-medium"><i class="bi bi-exclamation-circle"></i> Dalam proses</span>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-        {{-- Card Total Peminjaman --}}
-        <div class="col-12 col-sm-6 col-xl-4">
-            <div class="card border-0 shadow-sm h-100">
-                <div class="card-body p-4">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <h6 class="text-secondary text-uppercase fw-bold small mb-2">Total Peminjaman</h6>
-                            <h2 class="fw-bold mb-0">{{ $totalLoans ?? 0 }}</h2>
-                        </div>
-                        <div class="bg-success bg-opacity-10 text-success rounded-3 p-3">
-                            <i class="bi bi-check-circle fs-3"></i>
-                        </div>
-                    </div>
-                    <div class="mt-3">
-                        <span class="badge bg-success-subtle text-success border border-success-subtle">{{ $approvedLoans ?? 0 }} Disetujui</span>
-                    </div>
+                    <a href="{{ route('user.users') }}"
+                       class="btn btn-secondary btn-sm">
+                        <i class="bi bi-people me-1"></i> Lihat Daftar
+                    </a>
                 </div>
             </div>
         </div>
 
     </div>
 
-    <div class="row g-4 mt-2">
-        {{-- Card Ajukan Peminjaman --}}
-        <div class="col-12 col-md-6">
-            <div class="card border-0 shadow-sm h-100">
-                <div class="card-body p-4">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <h6 class="text-dark fw-bold mb-2">Ajukan Peminjaman Baru</h6>
-                            <p class="text-muted small mb-0">Pilih alat yang ingin kamu pinjam.</p>
-                        </div>
-                        <div class="bg-info bg-opacity-10 text-info rounded-3 p-3">
-                            <i class="bi bi-plus-lg fs-3"></i>
-                        </div>
-                    </div>
-                    <div class="mt-3">
-                        <a href="{{ route('user.peminjaman.create') }}" class="btn btn-sm btn-primary">
-                            <i class="bi bi-plus me-1"></i> Ajukan Sekarang
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        {{-- Card Daftar Pengguna --}}
-        <div class="col-12 col-md-6">
-            <div class="card border-0 shadow-sm h-100">
-                <div class="card-body p-4">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <h6 class="text-dark fw-bold mb-2">Daftar Pengguna</h6>
-                            <p class="text-muted small mb-0">Lihat daftar pengguna sistem.</p>
-                        </div>
-                        <div class="bg-secondary bg-opacity-10 text-secondary rounded-3 p-3">
-                            <i class="bi bi-people fs-3"></i>
-                        </div>
-                    </div>
-                    <div class="mt-3">
-                        <a href="{{ route('user.users') }}" class="btn btn-sm btn-secondary">
-                            <i class="bi bi-people me-1"></i> Lihat Daftar
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
 @endsection
