@@ -170,13 +170,15 @@
                                     <td>{{ \Carbon\Carbon::parse($p->tanggal_mulai)->format('d/m/Y') }}</td>
                                     <td>{{ \Carbon\Carbon::parse($p->tanggal_selesai)->format('d/m/Y') }}</td>
                                     <td>
-                                        @if($p->status === 'pending')
-                                            <span class="badge bg-warning text-dark"><i class="bi bi-clock"></i> Pending</span>
-                                        @elseif($p->status === 'approved')
-                                            <span class="badge bg-success"><i class="bi bi-check"></i> Approved</span>
-                                        @else
-                                            <span class="badge bg-danger"><i class="bi bi-x"></i> Rejected</span>
-                                        @endif
+                                            @if($p->status === 'pending')
+                                                <span class="badge bg-warning text-dark"><i class="bi bi-clock"></i> Pending</span>
+                                            @elseif($p->status === 'approved')
+                                                <span class="badge bg-success"><i class="bi bi-check"></i> Approved</span>
+                                            @elseif($p->status === 'returned')
+                                                <span class="badge bg-primary"><i class="bi bi-arrow-clockwise"></i> Returned</span>
+                                            @else
+                                                <span class="badge bg-danger"><i class="bi bi-x"></i> Rejected</span>
+                                            @endif
                                     </td>
                                     <td>
                                         <a href="{{ route('user.peminjaman.show', $p->id) }}" class="btn btn-sm btn-info">

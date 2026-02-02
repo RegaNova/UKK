@@ -53,6 +53,8 @@
                                     <span class="badge bg-warning text-dark"><i class="bi bi-clock"></i> Pending</span>
                                 @elseif($peminjaman->status === 'approved')
                                     <span class="badge bg-success"><i class="bi bi-check"></i> Disetujui</span>
+                                @elseif($peminjaman->status === 'returned')
+                                    <span class="badge bg-primary"><i class="bi bi-arrow-clockwise"></i> Dikembalikan</span>
                                 @else
                                     <span class="badge bg-danger"><i class="bi bi-x"></i> Ditolak</span>
                                 @endif
@@ -96,6 +98,13 @@
                                             </div>
                                         </div>
                                     </div>
+                                @elseif($peminjaman->status === 'approved')
+                                    <form action="{{ route('petugas.peminjaman.return', $peminjaman->id) }}" method="POST" style="display:inline;">
+                                        @csrf
+                                        <button type="submit" class="btn btn-sm btn-primary" onclick="return confirm('Tandai peminjaman telah dikembalikan?')">
+                                            <i class="bi bi-arrow-clockwise"></i> Dikembalikan
+                                        </button>
+                                    </form>
                                 @else
                                     <span class="text-muted">-</span>
                                 @endif

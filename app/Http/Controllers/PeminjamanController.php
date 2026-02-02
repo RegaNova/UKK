@@ -6,6 +6,7 @@ use App\Models\Alat;
 use App\Models\Peminjaman;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class PeminjamanController extends Controller
 {
@@ -35,6 +36,16 @@ class PeminjamanController extends Controller
             'tanggal_selesai' => ['required', 'date', 'after_or_equal:tanggal_mulai'],
             'keterangan' => ['nullable', 'string', 'max:1000'],
         ]);
+
+        // cek stok alat
+        $alat = Alat::find($validated['alat_id']);
+        if (!$alat) {
+            return Redirect::back()->withErrors(['alat_id' => 'Alat tidak ditemukan.'])->withInput();
+        }
+
+        if ($validated['jumlah'] > $alat->jumlah) {
+            return Redirect::back()->withErrors(['jumlah' => 'Stok alat tidak mencukupi.'])->withInput();
+        }
 
         $peminjaman = Peminjaman::create([
             'user_id' => $user->id,

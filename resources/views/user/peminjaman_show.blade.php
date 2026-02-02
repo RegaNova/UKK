@@ -19,6 +19,8 @@
                             <span class="badge bg-warning text-dark"><i class="bi bi-clock"></i> Menunggu Persetujuan</span>
                         @elseif($peminjaman->status === 'approved')
                             <span class="badge bg-success"><i class="bi bi-check"></i> Disetujui</span>
+                        @elseif($peminjaman->status === 'returned')
+                            <span class="badge bg-primary"><i class="bi bi-arrow-clockwise"></i> Dikembalikan</span>
                         @else
                             <span class="badge bg-danger"><i class="bi bi-x"></i> Ditolak</span>
                         @endif
@@ -119,6 +121,11 @@
                 <div class="alert alert-success mt-3 border-start border-success border-4">
                     <h6 class="fw-bold"><i class="bi bi-check-circle me-2"></i>Peminjaman Disetujui</h6>
                     <p class="mb-0 small mt-2">Peminjaman Anda telah disetujui. Silakan ambil alat sesuai jadwal yang telah ditentukan.</p>
+                </div>
+            @elseif($peminjaman->status === 'returned')
+                <div class="alert alert-primary mt-3 border-start border-primary border-4">
+                    <h6 class="fw-bold"><i class="bi bi-arrow-clockwise me-2"></i>Peminjaman Dikembalikan</h6>
+                    <p class="mb-0 small mt-2">Anda telah mengembalikan alat. Terima kasih.</p>
                 </div>
             @endif
         </div>

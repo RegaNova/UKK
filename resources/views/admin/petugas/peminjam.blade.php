@@ -32,6 +32,7 @@
                         <th>Email</th>
                         <th>Role</th>
                         <th>Terdaftar</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -43,10 +44,24 @@
                             <span class="badge bg-secondary">{{ ucfirst($item->role) }}</span>
                         </td>
                         <td>{{ $item->created_at->format('d M Y') }}</td>
+                        <td>
+                            <div class="btn-group btn-group-sm" role="group">
+                                <a href="{{ route('admin.peminjam.edit', $item->id) }}" class="btn btn-sm btn-primary">
+                                    <i class="bi bi-pencil"></i> Edit
+                                </a>
+                                <form action="{{ route('admin.peminjam.delete', $item->id) }}" method="POST" style="display:inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Hapus peminjam ini?')">
+                                        <i class="bi bi-trash"></i> Hapus
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="4" class="text-center py-4 text-muted">
+                        <td colspan="5" class="text-center py-4 text-muted">
                             Tidak ada data peminjam
                         </td>
                     </tr>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Auth\MakePetugasRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
@@ -98,11 +99,65 @@ class UserController extends Controller
             ->with('success', 'Petugas berhasil dihapus');
     }
 
+    /* ===================== PEMINJAM (ADMIN) ===================== */
+
+    public function editPeminjamForm($id)
+    {
+        $peminjam = User::findOrFail($id);
+        $this->ensurePeminjam($peminjam);
+
+        return view('admin.petugas.edit_peminjam', compact('peminjam'));
+    }
+
+    public function updatePeminjam(Request $request)
+    {
+        $id = $request->input('id');
+        $user = User::findOrFail($id);
+        $this->ensurePeminjam($user);
+
+        $data = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . $user->id,
+            'password' => 'nullable|string',
+        ]);
+
+        if (!empty($data['password'])) {
+            $data['password'] = Hash::make($data['password']);
+        } else {
+            unset($data['password']);
+        }
+
+        $user->update($data);
+
+        return redirect()
+            ->route('admin.peminjam')
+            ->with('success', 'Peminjam berhasil diperbarui');
+    }
+
+    public function deletePeminjam($id)
+    {
+        $user = User::findOrFail($id);
+        $this->ensurePeminjam($user);
+
+        $user->delete();
+
+        return redirect()
+            ->route('admin.peminjam')
+            ->with('success', 'Peminjam berhasil dihapus');
+    }
+
     /* ===================== GUARD ===================== */
 
     private function ensurePetugas(User $user): void
     {
         if ($user->role !== 'petugas') {
+            abort(404);
+        }
+    }
+
+    private function ensurePeminjam(User $user): void
+    {
+        if ($user->role !== 'user') {
             abort(404);
         }
     }
