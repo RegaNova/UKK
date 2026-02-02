@@ -1,11 +1,6 @@
 <nav class="navbar navbar-expand navbar-light bg-white border-bottom shadow-sm sticky-top px-4" style="height: 64px;">
     <div class="container-fluid p-0">
 
-        <div class="d-flex align-items-center">
-            <h5 class="mb-0 fw-bold text-dark text-truncate" style="max-width: 200px;">
-                @yield('page-title', 'Dashboard')
-            </h5>
-        </div>
 
         <ul class="navbar-nav ms-auto">
             <li class="nav-item dropdown">

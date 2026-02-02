@@ -8,7 +8,7 @@
     
     <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
         <span class="fs-4 fw-bold">
-            <i class="bi bi-tools me-2"></i>PinjamAlat
+            PinjamAlat
         </span>
     </a>
     
