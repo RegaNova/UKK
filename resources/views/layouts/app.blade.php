@@ -9,7 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 </head>
 
-<body class="overflow-hidden bg-light">
+<body class="bg-light">
 
     <!-- SIDEBAR -->
     <aside class="position-fixed top-0 start-0 vh-100 bg-dark text-white"
@@ -21,7 +21,7 @@
     @include('layouts.topbar')
 
     <!-- CONTENT -->
-    <div class="vh-100 overflow-auto" style="margin-left:260px; padding-top:64px;">
+    <div class="min-vh-100 overflow-auto" style="margin-left:260px;">
         <main class="p-4">
             @yield('content')
         </main>
