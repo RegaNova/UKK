@@ -13,10 +13,9 @@
                 </a>
             </div>
 
-            <form action="{{ route('admin.petugas.update') }}" method="POST">
+            <form action="{{ route('admin.petugas.update', $petugas->id) }}" method="POST">
                 @csrf
                 @method('PUT')
-                <input type="hidden" name="id" value="{{ $petugas->id }}">
 
                 <div class="mb-3">
                     <label for="name" class="form-label fw-medium">Nama <span class="text-danger">*</span></label>

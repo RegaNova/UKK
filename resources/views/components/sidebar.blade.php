@@ -50,6 +50,11 @@
                     Kategori
                 </a>
             </li>
+            <li>
+                <a href="{{ route('admin.riwayat') }}" class="{{ request()->routeIs('admin.riwayat*') ? $activeClass : $inactiveClass }}">
+                    Riwayat Peminjaman
+                </a>
+            </li>
         @endif
 
         @if ($role === 'petugas')

@@ -47,6 +47,7 @@ Route::middleware(['auth'])->group(function () {
                 Route::delete('/delete/{id}', [UserController::class, 'deletePetugas'])->name('admin.petugas.delete');
             });
             Route::resource('kategori', KategoriController::class);
+            Route::get('riwayat', [UserController::class, 'riwayatList'])->name('admin.riwayat');
         });
     });
     Route::middleware(['role:petugas'])->group(function () {

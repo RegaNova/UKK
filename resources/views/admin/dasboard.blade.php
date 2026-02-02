@@ -107,23 +107,23 @@
 
                             <thead class="table-light">
                                 <tr>
-                                    <th class="px-4 py-3 small text-uppercase fw-bold text-muted">No</th>
                                     <th class="py-3 small text-uppercase fw-bold text-muted">Nama User</th>
                                     <th class="py-3 small text-uppercase fw-bold text-muted">Nama Alat</th>
                                     <th class="py-3 small text-uppercase fw-bold text-muted text-center">Tanggal Pinjam</th>
                                     <th class="py-3 small text-uppercase fw-bold text-muted text-center">Tanggal Kembali</th>
-                                    <th class="py-3 small text-uppercase fw-bold text-muted text-end px-4">Status</th>
+                                    <th class="py-3 small text-uppercase fw-bold text-muted text-center">petugas</th>
+                                    <th class="py-3 small text-uppercase fw-bold text-muted text-center">Status</th>
                                 </tr>
                             </thead>
 
                             <tbody class="bg-white">
                                 <tr>
-                                    <td class="px-4 text-muted fw-medium">01</td>
                                     <td class="fw-bold text-dark">Andi Pratama</td>
                                     <td class="text-muted">Bor Listrik</td>
                                     <td class="text-center text-muted">10 Jan 2026</td>
                                     <td class="text-center text-muted">15 Jan 2026</td>
-                                    <td class="text-end px-4">
+                                    <td class="text-center px-4 fw-bold">Imam</td>
+                                    <td class="text-center px-4">
                                         <span class="badge bg-warning-subtle text-warning px-3">
                                             Dipinjam
                                         </span>
@@ -131,11 +131,11 @@
                                 </tr>
 
                                 <tr>
-                                    <td class="px-4 text-muted fw-medium">02</td>
                                     <td class="fw-bold text-dark">Siti Aisyah</td>
                                     <td class="text-muted">Vacuum Cleaner</td>
                                     <td class="text-center text-muted">05 Jan 2026</td>
                                     <td class="text-center text-muted">08 Jan 2026</td>
+                                    <td class="text-center px-4 fw-bold">Rokim</td>
                                     <td class="text-end px-4">
                                         <span class="badge bg-success-subtle text-success px-3">
                                             Dikembalikan
@@ -144,11 +144,11 @@
                                 </tr>
 
                                 <tr>
-                                    <td class="px-4 text-muted fw-medium">03</td>
                                     <td class="fw-bold text-dark">Budi Santoso</td>
                                     <td class="text-muted">Kabel Roll</td>
                                     <td class="text-center text-muted">01 Jan 2026</td>
                                     <td class="text-center text-muted">03 Jan 2026</td>
+                                    <td class="text-center px-4 fw-bold">Eko</td>
                                     <td class="text-end px-4">
                                         <span class="badge bg-success-subtle text-success px-3">
                                             Dikembalikan
