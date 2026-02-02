@@ -2,7 +2,7 @@
 @section('title', 'Dashboard User')
 
 @section('content')
-<div class="container-fluid px-4 py-4">
+<div class="container-fluid px-3 px-md-4">
     <div class="d-flex align-items-center justify-content-between mb-4">
         <div>
             <h4 class="fw-bold text-dark mb-0">Halo, {{ auth()->user()->name }} 👋</h4>
