@@ -9,6 +9,7 @@ use App\Http\Controllers\PetugasController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PeminjamanController;
 use App\Http\Controllers\PeminjamController;
+use App\Http\Controllers\ActivityLogController;
 
 Route::redirect('/', '/auth/login');
 
@@ -60,6 +61,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::middleware(['role:user'])->group(function () {
         Route::get('user/dashboard', [PeminjamController::class, 'showDashboard'])->name('user.dashboard');
+        Route::get('/log-aktivitas', [ActivityLogController::class, 'index'])->name('log.aktivitas');
+        Route::get('/log-aktivitas/{id}', [ActivityLogController::class, 'show'])->name('log.aktivitas.show');
 
         // Peminjaman routes for users
         Route::get('user/peminjaman', [PeminjamanController::class, 'index'])->name('user.peminjaman');
@@ -68,5 +71,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('user/peminjaman/{id}', [PeminjamanController::class, 'show'])->name('user.peminjaman.show');
 
         // User list route
-        Route::get('user/users', [UserController::class, 'userList'])->name('user.users');    });
+        Route::get('user/users', [UserController::class, 'userList'])->name('user.users');
+
+        // Alat list route
+        Route::get('user/alat-list', [AlatController::class, 'userList'])->name('user.alat-list');
+    });
 });

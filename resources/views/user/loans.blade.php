@@ -174,74 +174,10 @@
 
     </div>
 
-    <!-- RIWAYAT -->
-    @if($peminjamans->count())
-        <div class="card border-0 shadow-sm">
-            <div class="card-header bg-light border-0 py-3">
-                <h6 class="fw-bold mb-0">
-                    <i class="bi bi-clock-history me-2"></i>
-                    Riwayat Peminjaman
-                </h6>
-            </div>
-
-            <div class="table-responsive">
-                <table class="table table-hover align-middle mb-0">
-                    <thead class="table-light">
-                        <tr>
-                            <th>#</th>
-                            <th>Alat</th>
-                            <th>Jumlah</th>
-                            <th>Mulai</th>
-                            <th>Kembali</th>
-                            <th>Status</th>
-                            <th class="text-center">Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($peminjamans as $i => $p)
-                        <tr>
-                            <td>{{ $i+1 }}</td>
-                            <td>
-                                <strong>{{ $p->alat->nama ?? $p->alat->nama_alat }}</strong>
-                                @if($p->keterangan)
-                                    <br>
-                                    <small class="text-muted">
-                                        {{ Str::limit($p->keterangan, 40) }}
-                                    </small>
-                                @endif
-                            </td>
-                            <td>{{ $p->jumlah }}</td>
-                            <td>{{ \Carbon\Carbon::parse($p->tanggal_mulai)->format('d/m/Y') }}</td>
-                            <td>{{ \Carbon\Carbon::parse($p->tanggal_selesai)->format('d/m/Y') }}</td>
-                            <td>
-                                @if($p->status === 'pending')
-                                    <span class="badge bg-warning text-dark">Pending</span>
-                                @elseif($p->status === 'approved')
-                                    <span class="badge bg-success">Approved</span>
-                                @elseif($p->status === 'returned')
-                                    <span class="badge bg-primary">Returned</span>
-                                @else
-                                    <span class="badge bg-danger">Rejected</span>
-                                @endif
-                            </td>
-                            <td class="text-center">
-                                <a href="{{ route('user.peminjaman.show',$p->id) }}"
-                                   class="btn btn-sm btn-outline-primary">
-                                    <i class="bi bi-eye"></i>
-                                </a>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    @else
-        <div class="alert alert-info">
-            <i class="bi bi-info-circle me-2"></i>
-            Anda belum pernah mengajukan peminjaman
-        </div>
-    @endif
+    <div class="alert alert-info">
+        <i class="bi bi-info-circle me-2"></i>
+        Untuk melihat riwayat peminjaman, buka <a href="{{ route('log.aktivitas') }}">Log Aktivitas</a>.
+    </div>
 
 </div>
 @endsection

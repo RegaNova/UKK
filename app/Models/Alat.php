@@ -14,6 +14,7 @@ class Alat extends Model
         'jumlah',
         'kategori_id',
         'keterangan',
+        'gambar',
     ];
 
     public function kategori()

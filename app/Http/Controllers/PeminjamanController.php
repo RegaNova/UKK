@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Alat;
 use App\Models\Peminjaman;
+use App\Models\ActivityLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -55,6 +56,19 @@ class PeminjamanController extends Controller
             'tanggal_selesai' => $validated['tanggal_selesai'],
             'keterangan' => $validated['keterangan'] ?? null,
             'status' => 'pending',
+        ]);
+
+        // Catat aktivitas pembuatan peminjaman
+        ActivityLog::create([
+            'user_id' => $user->id,
+            'activity' => 'Ajukan Peminjaman',
+            'jumlah' => $validated['jumlah'],
+            'tanggal_mulai' => $validated['tanggal_mulai'],
+            'tanggal_selesai' => $validated['tanggal_selesai'],
+            'description' => sprintf(
+                'Mengajukan peminjaman alat %s',
+                $alat->nama ?? $alat->nama_alat ?? 'Alat#'.$alat->id
+            ),
         ]);
 
         return redirect()->route('user.peminjaman')->with('success', 'Permintaan peminjaman berhasil dikirim.');

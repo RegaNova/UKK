@@ -132,27 +132,27 @@
             </div>
         </div>
 
-        <!-- DAFTAR PENGGUNA -->
+        <!-- DAFTAR ALAT -->
         <div class="col-12 col-md-6">
             <div class="card border-0 shadow-sm h-100">
                 <div class="card-body p-4">
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <div>
                             <h6 class="fw-bold mb-1">
-                                Daftar Pengguna
+                                Daftar Alat
                             </h6>
                             <p class="text-muted small mb-0">
-                                Lihat daftar pengguna sistem
+                                Lihat daftar alat yang tersedia
                             </p>
                         </div>
                         <span class="badge bg-secondary bg-opacity-10 text-secondary p-3 rounded-circle">
-                            <i class="bi bi-people fs-4"></i>
+                            <i class="bi bi-tools fs-4"></i>
                         </span>
                     </div>
 
-                    <a href="{{ route('user.users') }}"
+                    <a href="{{ route('user.alat-list') }}"
                        class="btn btn-secondary btn-sm">
-                        <i class="bi bi-people me-1"></i> Lihat Daftar
+                        <i class="bi bi-tools me-1"></i> Lihat Daftar
                     </a>
                 </div>
             </div>

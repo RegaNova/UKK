@@ -84,5 +84,11 @@ class AlatController extends Controller
             return redirect()->route('alat.index')->with('error', 'Gagal menghapus data alat');
         }
     }
+
+    public function userList()
+    {
+        $alat = Alat::with('kategori')->latest()->get();
+        return view('user.alat-list', compact('alat'));
+    }
 }
 

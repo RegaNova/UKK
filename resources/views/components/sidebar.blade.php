@@ -5,13 +5,13 @@
 @endphp
 
 <aside class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark position-fixed" style="width: 280px; height: 100vh; top: 0; left: 0; overflow-y: auto; z-index: 1000;">
-    
+
     <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
         <span class="fs-4 fw-bold">
             PinjamAlat
         </span>
     </a>
-    
+
     <hr>
 
     <ul class="nav nav-pills flex-column mb-auto gap-1">
@@ -24,8 +24,8 @@
                 </div>
             </li>
             <li>
-                <a href="{{ route('admin.dashboard') }}" 
-                   class="{{ request()->routeIs('admin.dashboard') ? $activeClass : $inactiveClass }}" 
+                <a href="{{ route('admin.dashboard') }}"
+                   class="{{ request()->routeIs('admin.dashboard') ? $activeClass : $inactiveClass }}"
                    aria-current="page">
                     Dashboard
                 </a>
@@ -64,14 +64,14 @@
                 </div>
             </li>
             <li>
-                <a href="{{ route('petugas.dashboard') }}" 
+                <a href="{{ route('petugas.dashboard') }}"
                    class="{{ request()->routeIs('petugas.dashboard') ? $activeClass : $inactiveClass }}">
                     <i class="bi bi-grid"></i>
                     Dashboard
                 </a>
             </li>
             <li>
-                <a href="{{ route('petugas.peminjaman') }}" 
+                <a href="{{ route('petugas.peminjaman') }}"
                    class="{{ request()->routeIs('petugas.peminjaman') ? $activeClass : $inactiveClass }}">
                     <i class="bi bi-check-circle"></i>
                     Persetujuan
@@ -87,20 +87,27 @@
                 </div>
             </li>
             <li>
-                <a href="{{ route('user.dashboard') }}" 
+                <a href="{{ route('user.dashboard') }}"
                    class="{{ request()->routeIs('user.dashboard') ? $activeClass : $inactiveClass }}">
                     <i class="bi bi-house-door"></i>
                     Dashboard
                 </a>
             </li>
-            
+
             <li>
-                <a href="{{ route('user.peminjaman') }}" 
+                <a href="{{ route('user.peminjaman') }}"
                    class="{{ request()->routeIs('user.peminjaman') ? $activeClass : $inactiveClass }}">
                     <i class="bi bi-cart3"></i>
                     Peminjaman
                 </a>
             </li>
+
+            <li>
+                <a href="{{ route('log.aktivitas') }}"
+                   class="{{ request()->routeIs('log.aktivitas') ? $activeClass : $inactiveClass }}">
+                    <i class="bi bi-clock-history"></i>
+                    Log Aktivitas
+                </a>
         @endif
 
     </ul>
